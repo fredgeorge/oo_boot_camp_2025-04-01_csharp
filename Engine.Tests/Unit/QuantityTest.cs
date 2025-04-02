@@ -4,6 +4,7 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
+using System.Collections.Generic;
 using Engine.Quantities;
 using Xunit;
 using static Engine.Quantities.Unit;
@@ -26,5 +27,16 @@ public class QuantityTest {
     [Fact]
     public void EqualityOfDifferentUnits() {
         Assert.NotEqual(new Quantity(8.0, Tablespoon), new Quantity(8.0, Pint));
+    }
+
+    [Fact]
+    public void Set() {
+        Assert.Single(new HashSet<Quantity> { new Quantity(8, Tablespoon), new Quantity(8, Tablespoon) });
+        Assert.Contains(new Quantity(8, Tablespoon), new HashSet<Quantity> { new Quantity(8, Tablespoon) });
+    }
+
+    [Fact]
+    public void Hash() {
+        Assert.Equal(new Quantity(8, Tablespoon).GetHashCode(), new Quantity(8, Tablespoon).GetHashCode());
     }
 }

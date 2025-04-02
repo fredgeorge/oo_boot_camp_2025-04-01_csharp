@@ -16,4 +16,6 @@ public class Quantity(double value, Unit unit) {
 
     private bool Equals(Quantity other) => 
         this._value == other._value && this._unit == other._unit;
+
+    public override int GetHashCode() => HashCode.Combine(this._value, this._unit);
 }
