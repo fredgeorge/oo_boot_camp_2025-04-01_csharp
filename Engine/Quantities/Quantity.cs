@@ -7,9 +7,14 @@
 namespace Engine.Quantities;
 
 // Understands a specific measurement
-public class Quantity(double value, Unit unit) {
-    private readonly double _value = value;
-    private readonly Unit _unit = unit;
+public class Quantity {
+    private readonly double _value;
+    private readonly Unit _unit;
+    
+    internal Quantity(double value, Unit unit) {
+        _value = value;
+        _unit = unit;
+    }
 
     public override bool Equals(object? obj) => 
         this == obj || obj is Quantity other && this.Equals(other);

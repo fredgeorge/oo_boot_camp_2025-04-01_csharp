@@ -16,27 +16,27 @@ public class QuantityTest {
     
     [Fact]
     public void EqualityOfLikeUnits() {
-        Assert.Equal(new Quantity(8.0, Tablespoon), new Quantity(8.0, Tablespoon));
-        Assert.NotEqual(new Quantity(8, Tablespoon), new Quantity(6.0, Tablespoon));
-        Assert.NotEqual(new Quantity(8, Tablespoon), new object());
+        Assert.Equal(8.0.Tablespoons(), 8.0.Tablespoons());
+        Assert.NotEqual(8.Tablespoons(), 8.Pints());
+        Assert.NotEqual(8.Tablespoons(), new object());
 #pragma warning disable xUnit2000
-        Assert.NotEqual(new Quantity(8, Tablespoon), null);
+        Assert.NotEqual(8.Tablespoons(), null);
 #pragma warning restore xUnit2000
     }
 
     [Fact]
     public void EqualityOfDifferentUnits() {
-        Assert.NotEqual(new Quantity(8.0, Tablespoon), new Quantity(8.0, Pint));
+        Assert.NotEqual(8.0.Tablespoons(), 8.0.Pints());
     }
 
     [Fact]
     public void Set() {
-        Assert.Single(new HashSet<Quantity> { new Quantity(8, Tablespoon), new Quantity(8, Tablespoon) });
-        Assert.Contains(new Quantity(8, Tablespoon), new HashSet<Quantity> { new Quantity(8, Tablespoon) });
+        Assert.Single(new HashSet<Quantity> { 8.Tablespoons(), 8.Tablespoons() });
+        Assert.Contains(8.Tablespoons(), new HashSet<Quantity> { 8.Tablespoons() });
     }
 
     [Fact]
     public void Hash() {
-        Assert.Equal(new Quantity(8, Tablespoon).GetHashCode(), new Quantity(8, Tablespoon).GetHashCode());
+        Assert.Equal(8.Tablespoons().GetHashCode(), 8.Tablespoons().GetHashCode());
     }
 }
