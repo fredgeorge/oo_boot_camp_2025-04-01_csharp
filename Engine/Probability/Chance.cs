@@ -8,6 +8,7 @@ namespace Engine.Probability;
 
 // Understands the likelihood of something specific occurring
 public class Chance {
+    private const double CertainFraction = 1.0;
     private readonly double _fraction;
     
     internal Chance(double likelihoodAsFraction) {
@@ -20,6 +21,10 @@ public class Chance {
     private bool Equals(Chance other) => this._fraction == other._fraction;
     
     public override int GetHashCode() => _fraction.GetHashCode();
+    
+    public Chance Not() => new(CertainFraction - _fraction);
+
+    public static Chance operator !(Chance c) => c.Not();
 }
 
 public static class ChanceExtensions {
