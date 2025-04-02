@@ -4,6 +4,8 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.Quantities;
 
 // Understands a specific measurement
@@ -26,4 +28,11 @@ public class Quantity {
     }
 
     public override int GetHashCode() => _unit.HashCode(_amount);
+
+    public static Quantity operator +(Quantity left, Quantity right) => 
+        new(left._amount + left.ConvertedAmount(right), left._unit);
+
+    public static Quantity operator -(Quantity q) => new(-q._amount, q._unit);
+    
+    public static Quantity operator -(Quantity left, Quantity right) => left + -right;
 }
