@@ -29,6 +29,11 @@ public class Chance {
     public Chance And(Chance other) => new(this._fraction * other._fraction);
     
     public static Chance operator &(Chance left, Chance right) => left.And(right);
+
+    // DeMorgan's Law: https://en.wikipedia.org/wiki/De_Morgan%27s_laws
+    public static Chance operator |(Chance left, Chance right) => !(!left & !right);
+
+    public Chance Or(Chance other) => this | other;
 }
 
 public static class ChanceExtensions {
