@@ -12,6 +12,8 @@ public class Chance {
     private readonly double _fraction;
     
     internal Chance(double likelihoodAsFraction) {
+        if (likelihoodAsFraction is < 0.0 or > 1.0)
+            throw new ArgumentException("Value must be between 0.0 and 1.0, inclusive.");
         _fraction = likelihoodAsFraction;
     }
 

@@ -4,6 +4,7 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
+using System;
 using System.Collections.Generic;
 using Engine.Probability;
 using Xunit;
@@ -65,6 +66,12 @@ public class ChanceTest {
         Assert.Equal(Unlikely.Or(Likely), Likely | Unlikely);
         Assert.Equal(Certain, Likely | Certain);
         Assert.Equal(Likely, Impossible | Likely);
+    }
+
+    [Fact]
+    public void InvalidFractions() {
+        Assert.Throws<ArgumentException>(() => (-0.1).Chance());
+        Assert.Throws<ArgumentException>(() => 1.1.Chance());
     }
 
 }
