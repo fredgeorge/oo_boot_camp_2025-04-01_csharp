@@ -38,6 +38,7 @@ public class ChanceTest {
     [Fact]
     public void Hash() {
         Assert.Equal(0.75.Chance().GetHashCode(), Likely.GetHashCode());
+        Assert.Equal(0.3.Chance().GetHashCode(), (!!0.3.Chance()).GetHashCode());
     }
 
     [Fact]

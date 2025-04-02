@@ -23,7 +23,7 @@ public class Chance {
 
     private bool Equals(Chance other) => Math.Abs(this._fraction - other._fraction) < Epsilon;
     
-    public override int GetHashCode() => _fraction.GetHashCode();
+    public override int GetHashCode() => Math.Round(_fraction/Epsilon).GetHashCode();
     
     public Chance Not() => new(CertainFraction - _fraction);
 
