@@ -25,6 +25,10 @@ public class Chance {
     public Chance Not() => new(CertainFraction - _fraction);
 
     public static Chance operator !(Chance c) => c.Not();
+
+    public Chance And(Chance other) => new(this._fraction * other._fraction);
+    
+    public static Chance operator &(Chance left, Chance right) => left.And(right);
 }
 
 public static class ChanceExtensions {

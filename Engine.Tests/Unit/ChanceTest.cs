@@ -48,4 +48,13 @@ public class ChanceTest {
         Assert.Equal(Certain, !Impossible);
     }
 
+    [Fact]
+    public void And() {
+        Assert.Equal(Unlikely, EquallyLikely & EquallyLikely);
+        Assert.Equal(0.1875.Chance(), Likely & Unlikely);
+        Assert.Equal(Unlikely.And(Likely), Likely & Unlikely);
+        Assert.Equal(Likely, Likely & Certain);
+        Assert.Equal(Impossible, Impossible & Likely);
+    }
+
 }
