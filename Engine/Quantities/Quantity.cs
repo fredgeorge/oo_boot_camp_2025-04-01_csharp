@@ -25,5 +25,5 @@ public class Quantity {
         return this._unit.ConvertedAmount(other._amount, other._unit);
     }
 
-    public override int GetHashCode() => HashCode.Combine(this._amount, this._unit);
+    public override int GetHashCode() => _unit.HashCode(_amount);
 }

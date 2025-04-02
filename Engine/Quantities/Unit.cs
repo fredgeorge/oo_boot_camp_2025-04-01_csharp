@@ -28,6 +28,8 @@ public class Unit {
 
     internal double ConvertedAmount(double otherAmount, Unit other) => 
         otherAmount * other._baseUnitRatio / this._baseUnitRatio;
+
+    internal int HashCode(double amount) => (amount * _baseUnitRatio).GetHashCode();
 }
 
 public static class QuantityConstructors {
