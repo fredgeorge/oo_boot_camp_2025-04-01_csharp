@@ -9,6 +9,7 @@ namespace Engine.Probability;
 // Understands the likelihood of something specific occurring
 public class Chance {
     private const double CertainFraction = 1.0;
+    private const double Epsilon = 1e-10;
     private readonly double _fraction;
     
     internal Chance(double likelihoodAsFraction) {
@@ -20,7 +21,7 @@ public class Chance {
     public override bool Equals(object? obj) => 
         this == obj || obj is Chance other && this.Equals(other);
 
-    private bool Equals(Chance other) => this._fraction == other._fraction;
+    private bool Equals(Chance other) => Math.Abs(this._fraction - other._fraction) < Epsilon;
     
     public override int GetHashCode() => _fraction.GetHashCode();
     
