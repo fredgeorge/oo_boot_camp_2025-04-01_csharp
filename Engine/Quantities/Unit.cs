@@ -9,12 +9,25 @@ namespace Engine.Quantities;
 // Understands a specific metric
 public class Unit {
     internal static readonly Unit Teaspoon = new();
-    internal static readonly Unit Tablespoon = new();
-    internal static readonly Unit Ounce = new();
-    internal static readonly Unit Cup = new();
-    internal static readonly Unit Pint = new();
-    internal static readonly Unit Quart = new();
-    internal static readonly Unit Gallon = new();
+    internal static readonly Unit Tablespoon = new(3, Teaspoon);
+    internal static readonly Unit Ounce = new(2, Tablespoon);
+    internal static readonly Unit Cup = new(8, Ounce);
+    internal static readonly Unit Pint = new(2, Cup);
+    internal static readonly Unit Quart = new(2, Pint);
+    internal static readonly Unit Gallon = new(4, Quart);
+
+    private readonly double _baseUnitRatio;
+
+    private Unit() {
+        _baseUnitRatio = 1.0;
+    }
+
+    private Unit(double relativeRatio, Unit relativeUnit) {
+        _baseUnitRatio = relativeRatio * relativeUnit._baseUnitRatio;
+    }
+
+    internal double ConvertedAmount(double otherAmount, Unit other) => 
+        otherAmount * other._baseUnitRatio / this._baseUnitRatio;
 }
 
 public static class QuantityConstructors {

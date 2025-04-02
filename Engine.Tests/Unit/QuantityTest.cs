@@ -7,7 +7,6 @@
 using System.Collections.Generic;
 using Engine.Quantities;
 using Xunit;
-using static Engine.Quantities.Unit;
 
 namespace Engine.Tests.Unit;
 
@@ -27,6 +26,8 @@ public class QuantityTest {
     [Fact]
     public void EqualityOfDifferentUnits() {
         Assert.NotEqual(8.0.Tablespoons(), 8.0.Pints());
+        Assert.Equal(8.0.Tablespoons(), 0.5.Cups());
+        Assert.Equal(768.Teaspoons(), 1.Gallons());
     }
 
     [Fact]
