@@ -28,6 +28,10 @@ public class QuantityTest {
         Assert.NotEqual(8.0.Tablespoons(), 8.0.Pints());
         Assert.Equal(8.0.Tablespoons(), 0.5.Cups());
         Assert.Equal(768.Teaspoons(), 1.Gallons());
+        Assert.Equal(18.Inches(), 0.5.Yards());
+        Assert.Equal(1.Miles(), (12 * 5280).Inches());
+        Assert.Equal(1.5.Leagues(), 36.Furlongs());
+        Assert.Equal(22.Fathoms(), 2.Chains());
     }
 
     [Fact]
@@ -40,6 +44,8 @@ public class QuantityTest {
     public void Hash() {
         Assert.Equal(8.Tablespoons().GetHashCode(), 8.Tablespoons().GetHashCode());
         Assert.Equal(8.0.Tablespoons().GetHashCode(), 0.5.Cups().GetHashCode());
+        Assert.Equal(18.Inches().GetHashCode(), 0.5.Yards().GetHashCode());
+        Assert.Equal(6.Inches().GetHashCode(), (0.5.Yards() - 1.Feet()).GetHashCode());
     }
 
     [Fact]
@@ -47,5 +53,6 @@ public class QuantityTest {
         Assert.Equal(0.5.Quarts(), 6.Tablespoons() + 13.Ounces());
         Assert.Equal((-6).Tablespoons(), -6.Tablespoons());
         Assert.Equal(-0.5.Pints(), 10.Tablespoons() - 13.Ounces());
+        Assert.Equal(6.Inches(), 0.5.Yards() - 1.Feet());
     }
 }
