@@ -4,6 +4,7 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
+using System;
 using System.Collections.Generic;
 using Engine.Quantities;
 using Xunit;
@@ -60,5 +61,10 @@ public class QuantityTest {
     public void CrossUnitEquality() {
         Assert.NotEqual(1.Inches(), 1.Teaspoons());
         Assert.NotEqual(4.Ounces(), 2.Feet());
+    }
+
+    [Fact]
+    public void CrossUnitArithmetic() {
+        Assert.Throws<ArgumentException>(() => 3.Yards() - 4.Tablespoons());
     }
 }

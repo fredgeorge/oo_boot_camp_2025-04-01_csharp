@@ -38,8 +38,10 @@ public class Unit {
         _baseUnitRatio = relativeRatio * relativeUnit._baseUnitRatio;
     }
 
-    internal double ConvertedAmount(double otherAmount, Unit other) =>
-        otherAmount * other._baseUnitRatio / this._baseUnitRatio;
+    internal double ConvertedAmount(double otherAmount, Unit other) {
+        if (!this.IsCompatible(other)) throw new ArgumentException("Incompatible Units for arithmetic");
+        return otherAmount * other._baseUnitRatio / this._baseUnitRatio;
+    }
 
     internal int HashCode(double amount) =>
         Math.Round(amount / Quantity.Epsilon * _baseUnitRatio).GetHashCode();
