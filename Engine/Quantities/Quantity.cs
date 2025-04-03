@@ -23,6 +23,7 @@ public class Quantity {
         this == obj || obj is Quantity other && this.Equals(other);
 
     private bool Equals(Quantity other) => 
+        this.IsCompatible(other) &&
         Math.Abs(this._amount - ConvertedAmount(other)) < Epsilon;
 
     private double ConvertedAmount(Quantity other) {
@@ -30,6 +31,8 @@ public class Quantity {
     }
 
     public override int GetHashCode() => _unit.HashCode(_amount);
+
+    private bool IsCompatible(Quantity other) => this._unit.IsCompatible(other._unit);
 
     public static Quantity operator +(Quantity left, Quantity right) =>
         new(left._amount + left.ConvertedAmount(right), left._unit);

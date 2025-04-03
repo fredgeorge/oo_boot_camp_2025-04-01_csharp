@@ -25,13 +25,16 @@ public class Unit {
     internal static readonly Unit Mile = new(8, Furlong);
     internal static readonly Unit League = new(3, Mile);
 
+    private readonly Unit _baseUnit;
     private readonly double _baseUnitRatio;
 
     private Unit() {
+        _baseUnit = this;
         _baseUnitRatio = 1.0;
     }
 
     private Unit(double relativeRatio, Unit relativeUnit) {
+        _baseUnit = relativeUnit._baseUnit;
         _baseUnitRatio = relativeRatio * relativeUnit._baseUnitRatio;
     }
 
@@ -40,6 +43,8 @@ public class Unit {
 
     internal int HashCode(double amount) =>
         Math.Round(amount / Quantity.Epsilon * _baseUnitRatio).GetHashCode();
+
+    internal bool IsCompatible(Unit other) => this._baseUnit == other._baseUnit;
 }
 
 public static class QuantityConstructors {

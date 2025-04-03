@@ -55,4 +55,10 @@ public class QuantityTest {
         Assert.Equal(-0.5.Pints(), 10.Tablespoons() - 13.Ounces());
         Assert.Equal(6.Inches(), 0.5.Yards() - 1.Feet());
     }
+
+    [Fact]
+    public void CrossUnitEquality() {
+        Assert.NotEqual(1.Inches(), 1.Teaspoons());
+        Assert.NotEqual(4.Ounces(), 2.Feet());
+    }
 }
