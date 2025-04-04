@@ -53,46 +53,46 @@ public class Unit {
     }
 
     internal int HashCode(double amount) =>
-        Math.Round((amount - _offset) / Quantity.Epsilon * _baseUnitRatio).GetHashCode();
+        Math.Round((amount - _offset) / RatioQuantity.Epsilon * _baseUnitRatio).GetHashCode();
 
     internal bool IsCompatible(Unit other) => this._baseUnit == other._baseUnit;
 }
 
 public static class QuantityConstructors {
-    public static Quantity Teaspoons(this double amount) => new(amount, Unit.Teaspoon);
-    public static Quantity Teaspoons(this int amount) => new(amount, Unit.Teaspoon);
-    public static Quantity Tablespoons(this double amount) => new(amount, Unit.Tablespoon);
-    public static Quantity Tablespoons(this int amount) => new(amount, Unit.Tablespoon);
-    public static Quantity Ounces(this double amount) => new(amount, Unit.Ounce);
-    public static Quantity Ounces(this int amount) => new(amount, Unit.Ounce);
-    public static Quantity Cups(this double amount) => new(amount, Unit.Cup);
-    public static Quantity Cups(this int amount) => new(amount, Unit.Cup);
-    public static Quantity Pints(this double amount) => new(amount, Unit.Pint);
-    public static Quantity Pints(this int amount) => new(amount, Unit.Pint);
-    public static Quantity Quarts(this double amount) => new(amount, Unit.Quart);
-    public static Quantity Quarts(this int amount) => new(amount, Unit.Quart);
-    public static Quantity Gallons(this double amount) => new(amount, Unit.Gallon);
-    public static Quantity Gallons(this int amount) => new(amount, Unit.Gallon);
+    public static RatioQuantity Teaspoons(this double amount) => new(amount, Unit.Teaspoon);
+    public static RatioQuantity Teaspoons(this int amount) => new(amount, Unit.Teaspoon);
+    public static RatioQuantity Tablespoons(this double amount) => new(amount, Unit.Tablespoon);
+    public static RatioQuantity Tablespoons(this int amount) => new(amount, Unit.Tablespoon);
+    public static RatioQuantity Ounces(this double amount) => new(amount, Unit.Ounce);
+    public static RatioQuantity Ounces(this int amount) => new(amount, Unit.Ounce);
+    public static RatioQuantity Cups(this double amount) => new(amount, Unit.Cup);
+    public static RatioQuantity Cups(this int amount) => new(amount, Unit.Cup);
+    public static RatioQuantity Pints(this double amount) => new(amount, Unit.Pint);
+    public static RatioQuantity Pints(this int amount) => new(amount, Unit.Pint);
+    public static RatioQuantity Quarts(this double amount) => new(amount, Unit.Quart);
+    public static RatioQuantity Quarts(this int amount) => new(amount, Unit.Quart);
+    public static RatioQuantity Gallons(this double amount) => new(amount, Unit.Gallon);
+    public static RatioQuantity Gallons(this int amount) => new(amount, Unit.Gallon);
 
-    public static Quantity Inches(this double amount) => new(amount, Unit.Inch);
-    public static Quantity Inches(this int amount) => new(amount, Unit.Inch);
-    public static Quantity Feet(this double amount) => new(amount, Unit.Foot);
-    public static Quantity Feet(this int amount) => new(amount, Unit.Foot);
-    public static Quantity Yards(this double amount) => new(amount, Unit.Yard);
-    public static Quantity Yards(this int amount) => new(amount, Unit.Yard);
-    public static Quantity Fathoms(this double amount) => new(amount, Unit.Fathom);
-    public static Quantity Fathoms(this int amount) => new(amount, Unit.Fathom);
-    public static Quantity Chains(this double amount) => new(amount, Unit.Chain);
-    public static Quantity Chains(this int amount) => new(amount, Unit.Chain);
-    public static Quantity Furlongs(this double amount) => new(amount, Unit.Furlong);
-    public static Quantity Furlongs(this int amount) => new(amount, Unit.Furlong);
-    public static Quantity Miles(this double amount) => new(amount, Unit.Mile);
-    public static Quantity Miles(this int amount) => new(amount, Unit.Mile);
-    public static Quantity Leagues(this double amount) => new(amount, Unit.League);
-    public static Quantity Leagues(this int amount) => new(amount, Unit.League);
+    public static RatioQuantity Inches(this double amount) => new(amount, Unit.Inch);
+    public static RatioQuantity Inches(this int amount) => new(amount, Unit.Inch);
+    public static RatioQuantity Feet(this double amount) => new(amount, Unit.Foot);
+    public static RatioQuantity Feet(this int amount) => new(amount, Unit.Foot);
+    public static RatioQuantity Yards(this double amount) => new(amount, Unit.Yard);
+    public static RatioQuantity Yards(this int amount) => new(amount, Unit.Yard);
+    public static RatioQuantity Fathoms(this double amount) => new(amount, Unit.Fathom);
+    public static RatioQuantity Fathoms(this int amount) => new(amount, Unit.Fathom);
+    public static RatioQuantity Chains(this double amount) => new(amount, Unit.Chain);
+    public static RatioQuantity Chains(this int amount) => new(amount, Unit.Chain);
+    public static RatioQuantity Furlongs(this double amount) => new(amount, Unit.Furlong);
+    public static RatioQuantity Furlongs(this int amount) => new(amount, Unit.Furlong);
+    public static RatioQuantity Miles(this double amount) => new(amount, Unit.Mile);
+    public static RatioQuantity Miles(this int amount) => new(amount, Unit.Mile);
+    public static RatioQuantity Leagues(this double amount) => new(amount, Unit.League);
+    public static RatioQuantity Leagues(this int amount) => new(amount, Unit.League);
     
-    public static Quantity Celsius(this double amount) => new(amount, Unit.Celsius);
-    public static Quantity Celsius(this int amount) => new(amount, Unit.Celsius);
-    public static Quantity Fahrenheit(this double amount) => new(amount, Unit.Fahrenheit);
-    public static Quantity Fahrenheit(this int amount) => new(amount, Unit.Fahrenheit);        
+    public static IntervalQuantity Celsius(this double amount) => new(amount, Unit.Celsius);
+    public static IntervalQuantity Celsius(this int amount) => new(amount, Unit.Celsius);
+    public static IntervalQuantity Fahrenheit(this double amount) => new(amount, Unit.Fahrenheit);
+    public static IntervalQuantity Fahrenheit(this int amount) => new(amount, Unit.Fahrenheit);        
 }
