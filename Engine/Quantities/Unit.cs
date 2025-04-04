@@ -53,7 +53,7 @@ public class Unit {
     }
 
     internal int HashCode(double amount) =>
-        Math.Round((amount - _offset) / RatioQuantity.Epsilon * _baseUnitRatio).GetHashCode();
+        Math.Round((amount - _offset) / IntervalQuantity.Epsilon * _baseUnitRatio).GetHashCode();
 
     internal bool IsCompatible(Unit other) => this._baseUnit == other._baseUnit;
 }

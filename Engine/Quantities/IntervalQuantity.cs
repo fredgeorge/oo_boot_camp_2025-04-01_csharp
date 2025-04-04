@@ -4,19 +4,17 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
-using System.Runtime.CompilerServices;
-
 namespace Engine.Quantities;
 
-// Understands a specific measurement
+// Understands a specific measurement on a scale
 public class IntervalQuantity {
     internal const double Epsilon = 1E-10;
-    private readonly double _amount;
-    private readonly Unit _unit;
+    protected readonly double Amount;
+    protected readonly Unit Unit;
 
     internal IntervalQuantity(double amount, Unit unit) {
-        _amount = amount;
-        _unit = unit;
+        Amount = amount;
+        Unit = unit;
     }
 
     public override bool Equals(object? obj) =>
@@ -24,13 +22,13 @@ public class IntervalQuantity {
 
     private bool Equals(IntervalQuantity other) => 
         this.IsCompatible(other) &&
-        Math.Abs(this._amount - ConvertedAmount(other)) < Epsilon;
+        Math.Abs(this.Amount - ConvertedAmount(other)) < Epsilon;
 
-    private double ConvertedAmount(IntervalQuantity other) {
-        return this._unit.ConvertedAmount(other._amount, other._unit);
+    protected double ConvertedAmount(IntervalQuantity other) {
+        return this.Unit.ConvertedAmount(other.Amount, other.Unit);
     }
 
-    public override int GetHashCode() => _unit.HashCode(_amount);
+    public override int GetHashCode() => Unit.HashCode(Amount);
 
-    private bool IsCompatible(IntervalQuantity other) => this._unit.IsCompatible(other._unit);
+    private bool IsCompatible(IntervalQuantity other) => this.Unit.IsCompatible(other.Unit);
 }
