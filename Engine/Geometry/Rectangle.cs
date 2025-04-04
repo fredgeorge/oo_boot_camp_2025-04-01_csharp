@@ -10,11 +10,15 @@ namespace Engine.Geometry;
 public class Rectangle {
     private readonly double _width;
     private readonly double _length;
+    
     public Rectangle(double width, double length) {
         if (width <= 0 || length <= 0) throw new ArgumentException("width and length must be positive");
         _width = width;
         _length = length;
     }
+    
+    public static Rectangle Square(double side) => new(side, side);
+    
     public double Area() => _length * _width;
 
     public double Perimeter() => 2 * (_width + _length);
