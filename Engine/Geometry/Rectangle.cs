@@ -4,10 +4,12 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
+using Engine.Order;
+
 namespace Engine.Geometry;
 
 // Understands a polygon with four sides at right angles
-public class Rectangle {
+public class Rectangle : Orderable<Rectangle> {
     private readonly double _width;
     private readonly double _length;
     
@@ -22,6 +24,6 @@ public class Rectangle {
     public double Area() => _length * _width;
 
     public double Perimeter() => 2 * (_width + _length);
-
-    public bool IsSquare() => _width == _length;
+    
+    public bool IsBetterThan(Rectangle other) => this.Area() > other.Area();
 }

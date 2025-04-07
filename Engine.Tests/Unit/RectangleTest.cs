@@ -28,12 +28,6 @@ public class RectangleTest {
     }
 
     [Fact]
-    public void Squareness() {
-        Assert.True(new Rectangle(4, 4).IsSquare());
-        Assert.False(new Rectangle(4, 5).IsSquare());
-    }
-
-    [Fact]
     public void ValidDimensions() {
         Assert.Throws<ArgumentException>(() => new Rectangle(4, 0));
         Assert.Throws<ArgumentException>(() => new Rectangle(0, 4));
