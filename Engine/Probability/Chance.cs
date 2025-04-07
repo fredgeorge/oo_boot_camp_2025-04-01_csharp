@@ -4,10 +4,12 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
+using Engine.Order;
+
 namespace Engine.Probability;
 
 // Understands the likelihood of something specific occurring
-public class Chance {
+public class Chance : Orderable<Chance> {
     private const double CertainFraction = 1.0;
     private const double Epsilon = 1e-10;
     private readonly double _fraction;
@@ -17,6 +19,8 @@ public class Chance {
             throw new ArgumentException("Value must be between 0.0 and 1.0, inclusive.");
         _fraction = likelihoodAsFraction;
     }
+
+    public bool IsBetterThan(Chance other) => this._fraction < other._fraction;
 
     public override bool Equals(object? obj) => 
         this == obj || obj is Chance other && this.Equals(other);

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using Engine.Geometry;
 using Engine.Order;
+using Engine.Probability;
 using Xunit;
 using static Engine.Geometry.Rectangle;
 
@@ -24,5 +25,16 @@ public class OrderableTest {
             Square(3)
         }.Best().Area());
         Assert.Throws<InvalidOperationException>(() => new List<Rectangle>().Best());
+    }
+
+    [Fact]
+    public void LeastLikelyChance() {
+        Assert.Equal(0.1.Chance(), new List<Chance> {
+            0.25.Chance(),
+            1.Chance(),
+            0.1.Chance(),
+            0.5.Chance()
+        }.Best());
+        Assert.Throws<InvalidOperationException>(() => new List<Chance>().Best());
     }
 }
