@@ -30,9 +30,8 @@ public class Node {
         if (visitedNodes.Contains(this)) return Unreachable;
         var champion = Unreachable;
         foreach (var n in _neighbors) {
-            var challenger = n.HopCount(destination, CopyWithThis(visitedNodes));
-            if (challenger == Unreachable) continue;
-            if (champion == Unreachable || challenger + 1 < champion) champion = challenger + 1;
+            var challenger = n.HopCount(destination, CopyWithThis(visitedNodes)) + 1.0;
+            if (challenger < champion) champion = challenger;
         }
 
         return champion;
