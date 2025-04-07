@@ -17,7 +17,7 @@ public class Node {
     }
 
     public bool CanReach(Node destination) =>
-        CanReach(destination, NoVisitedNodes);
+        HopCount(destination, NoVisitedNodes) != Unreachable;
 
     public int HopCount(Node destination) {
         var result = HopCount(destination, NoVisitedNodes);
@@ -25,23 +25,12 @@ public class Node {
         return result;
     }
 
-    private bool CanReach(Node destination, List<Node> visitedNodes) {
-        if (this == destination) return true;
-        if (visitedNodes.Contains(this)) return false;
-        visitedNodes.Add(this);
-        foreach (var n in _neighbors)
-            if (n.CanReach(destination, visitedNodes)) return true;
-
-        return false;
-    }
-
     private int HopCount(Node destination, List<Node> visitedNodes) {
         if (this == destination) return 0;
         if (visitedNodes.Contains(this)) return Unreachable;
-        visitedNodes.Add(this);
         var champion = Unreachable;
         foreach (var n in _neighbors) {
-            var challenger = n.HopCount(destination, visitedNodes);
+            var challenger = n.HopCount(destination, CopyWithThis(visitedNodes));
             if (challenger == Unreachable) continue;
             if (champion == Unreachable || challenger + 1 < champion) champion = challenger + 1;
         }
@@ -50,4 +39,6 @@ public class Node {
     }
 
     private List<Node> NoVisitedNodes => [];
+
+    private List<Node> CopyWithThis(List<Node> nodes) => [..nodes, this];
 }
