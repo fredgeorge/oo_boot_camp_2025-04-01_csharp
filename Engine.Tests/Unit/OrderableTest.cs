@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Engine.Geometry;
 using Engine.Order;
 using Engine.Probability;
+using Engine.Quantities;
 using Xunit;
 using static Engine.Geometry.Rectangle;
 
@@ -36,5 +37,21 @@ public class OrderableTest {
             0.5.Chance()
         }.Best());
         Assert.Throws<InvalidOperationException>(() => new List<Chance>().Best());
+    }
+
+    [Fact]
+    public void LargestQuantity() {
+        Assert.Equal(6.Cups(), new List<RatioQuantity> {
+            0.5.Quarts(),
+            3.Pints(),
+            10.Tablespoons()
+        }.Best());
+        Assert.Throws<InvalidOperationException>(() => new List<IntervalQuantity>().Best());
+        Assert.Equal(50.Fahrenheit(), new List<IntervalQuantity> {
+            40.Fahrenheit(),
+            (-100).Celsius(),
+            10.Celsius()
+        }.Best());
+        Assert.Throws<InvalidOperationException>(() => new List<IntervalQuantity>().Best());
     }
 }

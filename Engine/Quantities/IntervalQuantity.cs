@@ -4,10 +4,12 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
+using Engine.Order;
+
 namespace Engine.Quantities;
 
 // Understands a specific measurement on a scale
-public class IntervalQuantity {
+public class IntervalQuantity : Orderable<IntervalQuantity> {
     internal const double Epsilon = 1E-10;
     protected readonly double Amount;
     protected readonly Unit Unit;
@@ -16,6 +18,9 @@ public class IntervalQuantity {
         Amount = amount;
         Unit = unit;
     }
+
+    public bool IsBetterThan(IntervalQuantity other) => 
+        this.Amount > ConvertedAmount(other);
 
     public override bool Equals(object? obj) =>
         this == obj || obj is IntervalQuantity other && this.Equals(other);
