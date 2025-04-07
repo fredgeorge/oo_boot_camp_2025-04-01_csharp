@@ -4,6 +4,8 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
+using System.Xml.Serialization;
+
 namespace Engine.Order;
 
 // Understands a sequencing of elements
@@ -12,11 +14,7 @@ public interface Orderable<T> {
 }
 
 public static class OrderableExtensions {
-    public static T Best<T>(this List<T> candidates) where T : Orderable<T> {
-        if (candidates.Count == 0) throw new InvalidOperationException("No elements specified");
-        var champion = candidates[0];
-        foreach (var challenger in candidates) 
-            if (challenger.IsBetterThan(champion)) champion = challenger;
-        return champion;
-    }
+    public static T Best<T>(this List<T> candidates) where T : Orderable<T> =>
+        candidates.Aggregate(candidates.First(), (champion, challenger) => 
+            challenger.IsBetterThan(champion) ? challenger : champion);
 }
