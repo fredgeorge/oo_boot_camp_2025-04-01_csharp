@@ -10,9 +10,11 @@ namespace Engine.Graph;
 
 // Understands a connection from one Node to another
 public class Link {
+    private readonly double _cost;
     private readonly Node _target;
 
-    internal Link(Node target) {
+    internal Link(double cost, Node target) {
+        _cost = cost;
         _target = target;
     }
 

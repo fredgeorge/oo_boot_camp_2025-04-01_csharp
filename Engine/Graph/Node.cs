@@ -14,11 +14,6 @@ public class Node {
     private readonly List<Link> _links = [];
     private readonly ImmutableList<Node> _noVisitedNodes = [];
 
-    public Node To(Node neighbor) {
-        _links.Add(new Link(neighbor));
-        return neighbor;
-    }
-
     public bool CanReach(Node destination) =>
         HopCount(destination, _noVisitedNodes) != Unreachable;
 
@@ -35,4 +30,21 @@ public class Node {
     }
 
     private ImmutableList<Node> CopyWithThis(ImmutableList<Node> nodes) => [..nodes, this];
+
+    public LinkBuilder Cost(double amount) => new LinkBuilder(_links, amount);
+
+    public class LinkBuilder {
+        private readonly List<Link> _links;
+        private readonly double _amount;
+
+        internal LinkBuilder(List<Link> links, double amount) {
+            _links = links;
+            _amount = amount;
+        }
+
+        public Node To(Node neighbor) {
+            _links.Add(new Link(_amount, neighbor));
+            return neighbor;
+        }
+    }
 }
