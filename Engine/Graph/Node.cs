@@ -24,7 +24,7 @@ public class Node {
     }
 
     public double Cost(Node destination) {
-        var result = Cost(destination, _noVisitedNodes);
+        var result = Cost(destination, _noVisitedNodes, Link.LeastCost);
         if (result == Unreachable) throw new ArgumentException("Destination node is not reachable");
         return result;
     }
@@ -35,10 +35,10 @@ public class Node {
         return _links.Min(link => link.HopCount(destination, CopyWithThis(visitedNodes)));
     }
 
-    internal double Cost(Node destination, ImmutableList<Node> visitedNodes) {
+    internal double Cost(Node destination, ImmutableList<Node> visitedNodes, Link.CostStrategy strategy) {
         if (this == destination) return 0.0;
         if (visitedNodes.Contains(this) || _links.Count == 0) return Unreachable;            
-        return _links.Min(link => link.Cost(destination, CopyWithThis(visitedNodes)));
+        return _links.Min(link => link.Cost(destination, CopyWithThis(visitedNodes), strategy));
     }
 
     private ImmutableList<Node> CopyWithThis(ImmutableList<Node> nodes) => [..nodes, this];
