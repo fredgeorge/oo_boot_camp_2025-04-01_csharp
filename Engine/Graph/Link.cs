@@ -12,6 +12,7 @@ namespace Engine.Graph;
 public class Link {
     internal delegate double CostStrategy(double cost);
     internal static CostStrategy LeastCost => (cost) => cost;
+    internal static CostStrategy FewestHops => (_) => 1.0;
     
     private readonly double _cost;
     private readonly Node _target;

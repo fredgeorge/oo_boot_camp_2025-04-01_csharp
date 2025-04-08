@@ -18,7 +18,7 @@ public class Node {
         HopCount(destination, _noVisitedNodes) != Unreachable;
 
     public int HopCount(Node destination) {
-        var result = HopCount(destination, _noVisitedNodes);
+        var result = Cost(destination, _noVisitedNodes, Link.FewestHops);
         if (result == Unreachable) throw new ArgumentException("Destination node is not reachable");
         return (int)result;
     }
