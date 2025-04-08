@@ -22,10 +22,6 @@ public class Link {
         _target = target;
     }
 
-    internal double HopCount(Node destination, ImmutableList<Node> visitedNodes) => 
-        _target.HopCount(destination, visitedNodes) + 1;
-
-
     internal double Cost(Node destination, ImmutableList<Node> visitedNodes, CostStrategy strategy) => 
         _target.Cost(destination, visitedNodes, strategy) + strategy(_cost);
 }
