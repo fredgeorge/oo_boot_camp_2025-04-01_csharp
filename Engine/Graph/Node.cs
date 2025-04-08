@@ -17,14 +17,12 @@ public class Node {
     public bool CanReach(Node destination) =>
         Cost(destination, _noVisitedNodes, Link.LeastCost) != Unreachable;
 
-    public int HopCount(Node destination) {
-        var result = Cost(destination, _noVisitedNodes, Link.FewestHops);
-        if (result == Unreachable) throw new ArgumentException("Destination node is not reachable");
-        return (int)result;
-    }
+    public int HopCount(Node destination) => (int)Cost(destination, Link.FewestHops);
 
-    public double Cost(Node destination) {
-        var result = Cost(destination, _noVisitedNodes, Link.LeastCost);
+    public double Cost(Node destination) => Cost(destination, Link.LeastCost);
+
+    private double Cost(Node destination, Link.CostStrategy strategy) {
+        var result = Cost(destination, _noVisitedNodes, strategy);
         if (result == Unreachable) throw new ArgumentException("Destination node is not reachable");
         return result;
     }
@@ -37,7 +35,7 @@ public class Node {
 
     private ImmutableList<Node> CopyWithThis(ImmutableList<Node> nodes) => [..nodes, this];
 
-    public LinkBuilder Cost(double amount) => new LinkBuilder(_links, amount);
+    public LinkBuilder Cost(double amount) => new(_links, amount);
 
     public class LinkBuilder {
         private readonly List<Link> _links;
