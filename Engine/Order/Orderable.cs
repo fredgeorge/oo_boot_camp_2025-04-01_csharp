@@ -4,8 +4,6 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
-using System.Xml.Serialization;
-
 namespace Engine.Order;
 
 // Understands a sequencing of elements

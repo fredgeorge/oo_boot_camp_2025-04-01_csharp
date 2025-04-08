@@ -23,10 +23,22 @@ public class Node {
         return (int)result;
     }
 
+    public double Cost(Node destination) {
+        var result = Cost(destination, _noVisitedNodes);
+        if (result == Unreachable) throw new ArgumentException("Destination node is not reachable");
+        return result;
+    }
+
     internal double HopCount(Node destination, ImmutableList<Node> visitedNodes) {
         if (this == destination) return 0.0;
         if (visitedNodes.Contains(this) || _links.Count == 0) return Unreachable;            
         return _links.Min(link => link.HopCount(destination, CopyWithThis(visitedNodes)));
+    }
+
+    internal double Cost(Node destination, ImmutableList<Node> visitedNodes) {
+        if (this == destination) return 0.0;
+        if (visitedNodes.Contains(this) || _links.Count == 0) return Unreachable;            
+        return _links.Min(link => link.Cost(destination, CopyWithThis(visitedNodes)));
     }
 
     private ImmutableList<Node> CopyWithThis(ImmutableList<Node> nodes) => [..nodes, this];
