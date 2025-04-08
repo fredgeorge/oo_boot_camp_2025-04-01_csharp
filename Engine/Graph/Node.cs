@@ -21,6 +21,21 @@ public class Node {
 
     public double Cost(Node destination) => Cost(destination, Link.LeastCost);
 
+    public Path Path(Node destination) => Path(destination, _noVisitedNodes)
+                                          ?? throw new ArgumentException("Destination node is not reachable");
+
+    internal Path? Path(Node destination, ImmutableList<Node> visitedNodes) {
+        if (this == destination) return new Path();
+        if (visitedNodes.Contains(this)) return null;
+        Path? champion = null;
+        foreach (var link in _links) {
+            var challenger = link.Path(destination, CopyWithThis(visitedNodes));
+            if (challenger == null) continue;
+            if (champion == null || challenger.Cost() < champion.Cost()) champion = challenger;
+        }
+        return champion;
+    }
+
     private double Cost(Node destination, Link.CostStrategy strategy) {
         var result = Cost(destination, _noVisitedNodes, strategy);
         if (result == Unreachable) throw new ArgumentException("Destination node is not reachable");
@@ -29,7 +44,7 @@ public class Node {
 
     internal double Cost(Node destination, ImmutableList<Node> visitedNodes, Link.CostStrategy strategy) {
         if (this == destination) return 0.0;
-        if (visitedNodes.Contains(this) || _links.Count == 0) return Unreachable;            
+        if (visitedNodes.Contains(this) || _links.Count == 0) return Unreachable;
         return _links.Min(link => link.Cost(destination, CopyWithThis(visitedNodes), strategy));
     }
 

@@ -63,4 +63,22 @@ public class GraphTest {
         Assert.Throws<ArgumentException>(() => G.Cost(B));
         Assert.Throws<ArgumentException>(() => B.Cost(G));
     }
+
+    [Fact]
+    public void Path() {
+        AssertPath(A, A, 0, 0);
+        AssertPath(B, A, 1, 5);
+        AssertPath(B, F, 1, 4);
+        AssertPath(B, D, 2, 7);
+        AssertPath(C, F, 4, 10);
+        Assert.Throws<ArgumentException>(() => A.Path(B));
+        Assert.Throws<ArgumentException>(() => G.Path(B));
+        Assert.Throws<ArgumentException>(() => B.Path(G));
+    }
+
+    private void AssertPath(Node source, Node destination, int expectedHopCount, double expectedCost) {
+        var path = source.Path(destination);
+        Assert.Equal(expectedHopCount, path.HopCount());
+        Assert.Equal(expectedCost, path.Cost());
+    }
 }
