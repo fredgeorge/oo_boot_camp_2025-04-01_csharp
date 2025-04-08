@@ -11,11 +11,11 @@ namespace Engine.Graph;
 // Understands its neighbors
 public class Node {
     private const double Unreachable = Double.PositiveInfinity;
-    private readonly List<Node> _neighbors = [];
+    private readonly List<Link> _links = [];
     private readonly ImmutableList<Node> _noVisitedNodes = [];
 
     public Node To(Node neighbor) {
-        _neighbors.Add(neighbor);
+        _links.Add(new Link(neighbor));
         return neighbor;
     }
 
@@ -28,10 +28,10 @@ public class Node {
         return (int)result;
     }
 
-    private double HopCount(Node destination, ImmutableList<Node> visitedNodes) {
+    internal double HopCount(Node destination, ImmutableList<Node> visitedNodes) {
         if (this == destination) return 0.0;
-        if (visitedNodes.Contains(this) || _neighbors.Count == 0) return Unreachable;            
-        return _neighbors.Min(n => n.HopCount(destination, CopyWithThis(visitedNodes)) + 1);
+        if (visitedNodes.Contains(this) || _links.Count == 0) return Unreachable;            
+        return _links.Min(link => link.HopCount(destination, CopyWithThis(visitedNodes)));
     }
 
     private ImmutableList<Node> CopyWithThis(ImmutableList<Node> nodes) => [..nodes, this];
