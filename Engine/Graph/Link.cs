@@ -25,8 +25,8 @@ public class Link {
     internal static double TotalCost(List<Link> links) =>
         links.Sum(link => link._cost);
 
-    internal Path? Path(Node destination, ImmutableList<Node> visitedNodes) {
-        return _target.Path(destination, visitedNodes)?.Prepend(this);
+    internal Path Path(Node destination, ImmutableList<Node> visitedNodes) {
+        return _target.Path(destination, visitedNodes).Prepend(this);
     }
 
     internal double Cost(Node destination, ImmutableList<Node> visitedNodes, CostStrategy strategy) => 

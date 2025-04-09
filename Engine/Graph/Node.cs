@@ -5,6 +5,7 @@
  */
 
 using System.Collections.Immutable;
+using static Engine.Graph.Path;
 
 namespace Engine.Graph;
 
@@ -15,24 +16,27 @@ public class Node {
     private readonly ImmutableList<Node> _noVisitedNodes = [];
 
     public bool CanReach(Node destination) =>
-        Cost(destination, _noVisitedNodes, Link.LeastCost) != Unreachable;
+        Path(destination, _noVisitedNodes) != None;
 
     public int HopCount(Node destination) => (int)Cost(destination, Link.FewestHops);
 
     public double Cost(Node destination) => Cost(destination, Link.LeastCost);
 
-    public Path Path(Node destination) => Path(destination, _noVisitedNodes)
-                                          ?? throw new ArgumentException("Destination node is not reachable");
+    public Path Path(Node destination) {
+        var result = Path(destination, _noVisitedNodes);
+        if (result == None) throw new ArgumentException("Destination node is not reachable");
+        return result;
+    }
 
-    internal Path? Path(Node destination, ImmutableList<Node> visitedNodes) {
+    internal Path Path(Node destination, ImmutableList<Node> visitedNodes) {
         if (this == destination) return new ActualPath();
-        if (visitedNodes.Contains(this)) return null;
-        Path? champion = null;
+        if (visitedNodes.Contains(this)) return None;
+        var champion = None;
         foreach (var link in _links) {
             var challenger = link.Path(destination, CopyWithThis(visitedNodes));
-            if (challenger == null) continue;
-            if (champion == null || challenger.Cost() < champion.Cost()) champion = challenger;
+            if (challenger.Cost() < champion.Cost()) champion = challenger;
         }
+
         return champion;
     }
 
