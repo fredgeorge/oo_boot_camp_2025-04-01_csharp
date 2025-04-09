@@ -81,4 +81,13 @@ public class GraphTest {
         Assert.Equal(expectedHopCount, path.HopCount());
         Assert.Equal(expectedCost, path.Cost());
     }
+    
+    /* Code Counts      Path()
+     Classes            6
+     Methods            21
+     Total xLoc         36
+     Avg Method         1.7
+     Test loc           46
+     Test%              56%
+     */
 }
