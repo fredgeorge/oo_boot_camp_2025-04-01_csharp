@@ -20,7 +20,7 @@ public class Node {
 
     public int HopCount(Node destination) => (int)Cost(destination, Link.FewestHops);
 
-    public double Cost(Node destination) => Cost(destination, Link.LeastCost);
+    public double Cost(Node destination) => Path(destination).Cost();
 
     public Path Path(Node destination) {
         var result = Path(destination, _noVisitedNodes);
@@ -31,13 +31,10 @@ public class Node {
     internal Path Path(Node destination, ImmutableList<Node> visitedNodes) {
         if (this == destination) return new ActualPath();
         if (visitedNodes.Contains(this)) return None;
-        var champion = None;
-        foreach (var link in _links) {
-            var challenger = link.Path(destination, CopyWithThis(visitedNodes));
-            if (challenger.Cost() < champion.Cost()) champion = challenger;
-        }
-
-        return champion;
+        return _links
+                   .Select(link => link.Path(destination, CopyWithThis(visitedNodes)))
+                   .MinBy(path => path.Cost())
+               ?? None;
     }
 
     private double Cost(Node destination, Link.CostStrategy strategy) {
