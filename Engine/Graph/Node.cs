@@ -25,7 +25,7 @@ public class Node {
                                           ?? throw new ArgumentException("Destination node is not reachable");
 
     internal Path? Path(Node destination, ImmutableList<Node> visitedNodes) {
-        if (this == destination) return new Path();
+        if (this == destination) return new ActualPath();
         if (visitedNodes.Contains(this)) return null;
         Path? champion = null;
         foreach (var link in _links) {

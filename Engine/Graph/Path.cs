@@ -7,16 +7,23 @@
 namespace Engine.Graph;
 
 // Understands a specific route from one Node to another
-public class Path {
+public abstract class Path {
+    
+    public abstract int HopCount();
+
+    public abstract double Cost();
+
+    internal virtual Path Prepend(Link link) => this;
+}
+
+internal class ActualPath : Path {
     private readonly List<Link> _links = [];
-    
-    internal Path() {}
-    
-    public int HopCount() => _links.Count;
 
-    public double Cost() => Link.TotalCost(_links);
+    public override int HopCount() => _links.Count;
 
-    internal Path Prepend(Link link) {
+    public override double Cost() => Link.TotalCost(_links);
+
+    internal override Path Prepend(Link link) {
         _links.Add(link);
         return this;
     }
