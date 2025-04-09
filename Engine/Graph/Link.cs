@@ -11,10 +11,6 @@ namespace Engine.Graph;
 
 // Understands a connection from one Node to another
 public class Link {
-    internal delegate double CostStrategy(double cost);
-    internal static CostStrategy LeastCost => (cost) => cost;
-    internal static CostStrategy FewestHops => (_) => 1.0;
-    
     private readonly double _cost;
     private readonly Node _target;
 
@@ -29,7 +25,4 @@ public class Link {
     internal Path Path(Node destination, ImmutableList<Node> visitedNodes, PathStrategy strategy) {
         return _target.Path(destination, visitedNodes, strategy).Prepend(this);
     }
-
-    internal double Cost(Node destination, ImmutableList<Node> visitedNodes, CostStrategy strategy) => 
-        _target.Cost(destination, visitedNodes, strategy) + strategy(_cost);
 }
