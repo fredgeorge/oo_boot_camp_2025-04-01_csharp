@@ -16,24 +16,24 @@ public class Node {
     private readonly ImmutableList<Node> _noVisitedNodes = [];
 
     public bool CanReach(Node destination) =>
-        Path(destination, _noVisitedNodes) != None;
+        Path(destination, _noVisitedNodes, LeastCost) != None;
 
     public int HopCount(Node destination) => (int)Cost(destination, Link.FewestHops);
 
     public double Cost(Node destination) => Path(destination).Cost();
 
     public Path Path(Node destination) {
-        var result = Path(destination, _noVisitedNodes);
+        var result = Path(destination, _noVisitedNodes, LeastCost);
         if (result == None) throw new ArgumentException("Destination node is not reachable");
         return result;
     }
 
-    internal Path Path(Node destination, ImmutableList<Node> visitedNodes) {
+    internal Path Path(Node destination, ImmutableList<Node> visitedNodes, PathStrategy strategy) {
         if (this == destination) return new ActualPath();
         if (visitedNodes.Contains(this)) return None;
         return _links
-                   .Select(link => link.Path(destination, CopyWithThis(visitedNodes)))
-                   .MinBy(path => path.Cost())
+                   .Select(link => link.Path(destination, CopyWithThis(visitedNodes), strategy))
+                   .MinBy(strategy.Invoke)
                ?? None;
     }
 

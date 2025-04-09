@@ -10,6 +10,11 @@ namespace Engine.Graph;
 public abstract class Path {
     internal static Path None = new NoPath();
     
+    internal delegate double PathStrategy(Path path);
+
+    internal static PathStrategy LeastCost => p => p.Cost();
+
+    
     public abstract int HopCount();
 
     public abstract double Cost();
