@@ -18,12 +18,14 @@ public class Node {
     public bool CanReach(Node destination) =>
         Path(destination, _noVisitedNodes, LeastCost) != None;
 
-    public int HopCount(Node destination) => (int)Cost(destination, Link.FewestHops);
+    public int HopCount(Node destination) => Path(destination, FewestHops).HopCount();
 
     public double Cost(Node destination) => Path(destination).Cost();
 
-    public Path Path(Node destination) {
-        var result = Path(destination, _noVisitedNodes, LeastCost);
+    public Path Path(Node destination) => Path(destination, LeastCost);
+
+    private Path Path(Node destination, PathStrategy strategy) {
+        var result = Path(destination, _noVisitedNodes, strategy);
         if (result == None) throw new ArgumentException("Destination node is not reachable");
         return result;
     }

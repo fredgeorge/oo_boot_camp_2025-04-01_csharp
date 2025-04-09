@@ -13,6 +13,7 @@ public abstract class Path {
     internal delegate double PathStrategy(Path path);
 
     internal static PathStrategy LeastCost => p => p.Cost();
+    internal static PathStrategy FewestHops => p => p.HopCount();
 
     
     public abstract int HopCount();
